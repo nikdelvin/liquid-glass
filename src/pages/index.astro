@@ -1,16 +1,72 @@
 ---
-
+import LiquidGlass from '../components/LiquidGlass.astro'
+import LiquidText from '../components/LiquidText.astro'
+import LiquidButton from '../components/LiquidButton.astro'
+import '../styles/global.css'
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={`/favicon.ico?v=${Date.now()}`}/>
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>IOS Liquid Design in Web by Nik Delvin</title>
+		<link rel="preload" href="/fonts/latin.woff2" as="font" type="font/woff2" crossorigin>
+    	<link rel="preload" href="/fonts/latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="preload" href="/fonts/symbols.woff2" as="font" type="font/woff2" crossorigin>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="google-sans-flex bg-zinc-950 text-zinc-50 min-h-screen overflow-hidden">
+		<div class="absolute inset-0 animate-scroll-bg bg-scroll-size" style="background-image: url('/0052.webp'); background-repeat: no-repeat;"></div>
+		<div class="absolute inset-0 w-screen h-screen flex flex-col justify-center items-center gap-8 max-sm:gap-4">
+			<LiquidGlass
+				width={655}
+				height={127}
+				radius={50}
+				depth={10}
+				blur={1}
+				chromaticAberration={2}
+				color='white'
+			>
+				<div class="p-8 px-11 text-[63px] leading-none font-extrabold">
+					<LiquidText blur={1} chromaticAberration={4} color="black">IOS LIQUID GLASS</LiquidText>
+				</div>
+			</LiquidGlass>
+			<LiquidGlass
+				width={655}
+				height={160}
+				radius={50}
+				depth={10}
+				blur={1}
+				chromaticAberration={2}
+				color='transparent'
+			>
+				<div class="p-8 px-11 text-8xl font-black">
+					<LiquidText blur={1} chromaticAberration={4} color="transparent">NIK DELVIN</LiquidText>
+				</div>
+			</LiquidGlass>
+			<LiquidButton w={300} h={60}>
+				<a href="https://github.com/nikdelvin/liquid-glass" target="_blank" class="text-2xl font-normal text-white">Contribute on GitHub</a>
+			</LiquidButton>
+			<div class="text-4xl font-black">
+				<LiquidText blur={1} chromaticAberration={4}>OR</LiquidText>
+			</div>
+			<LiquidButton w={300} h={60} morph>
+				<a href="/docs" class="text-2xl font-normal text-white">Read Documentation</a>
+			</LiquidButton>
+			<LiquidGlass
+				width={655}
+				height={128}
+				radius={50}
+				depth={10}
+				blur={1}
+				chromaticAberration={2}
+				color='black'
+			>
+				<div class="p-8 px-11 text-[64px] leading-none font-extrabold">
+					<LiquidText blur={1} chromaticAberration={4} color="white">PURE CSS EFFECT</LiquidText>
+				</div>
+			</LiquidGlass>
+		</div>
 	</body>
 </html>

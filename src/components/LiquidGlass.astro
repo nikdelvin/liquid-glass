@@ -1,0 +1,75 @@
+---
+import { getDisplacementFilter } from '../utils/liquidGlass';
+
+interface Props {
+  height: number;
+  width: number;
+  radius: number;
+  depth: number;
+  strength?: number;
+  chromaticAberration?: number;
+  blur?: number;
+  color?: 'white' | 'black' | 'transparent';
+}
+
+const { height, width, radius, depth, strength, chromaticAberration, blur, color = "black" } = Astro.props;
+
+const style = {
+    height: `${height}px`,
+    width: `${width}px`,
+    borderRadius: `${radius}px`,
+    backdropFilter: `blur(${(blur ?? 0) / 2}px) url('${getDisplacementFilter({
+      height,
+      width,
+      radius,
+      depth,
+      strength,
+      chromaticAberration,
+    })}') blur(${blur ?? 0}px) brightness(1.1) saturate(1.5)`,
+};
+---
+
+<div class={`liquid-glass-responsive glass-box glass-${color}`} style={style}>
+    <slot/>
+</div>
+
+<style>
+  .liquid-glass-responsive {
+    transform-origin: center center;
+  }
+  
+  /* Extra small devices (phones, less than 480px) */
+  @media (max-width: 479px) {
+    .liquid-glass-responsive {
+      transform: scale(0.5);
+    }
+  }
+  
+  /* Small devices (large phones, 480px to 639px) */
+  @media (min-width: 480px) and (max-width: 639px) {
+    .liquid-glass-responsive {
+      transform: scale(0.6);
+    }
+  }
+  
+  /* Medium devices (tablets, 640px to 767px) */
+  @media (min-width: 640px) and (max-width: 767px) {
+    .liquid-glass-responsive {
+      transform: scale(0.75);
+    }
+  }
+  
+  /* Large devices (small laptops, 768px to 1023px) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .liquid-glass-responsive {
+      transform: scale(0.85);
+    }
+  }
+  
+  /* Extra large devices (1024px and up) - no scaling */
+  @media (min-width: 1024px) {
+    .liquid-glass-responsive {
+      transform: scale(1);
+    }
+  }
+</style>

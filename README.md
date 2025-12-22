@@ -1,43 +1,161 @@
-# Astro Starter Kit: Minimal
+# 🫧 Liquid Glass
 
-```sh
-npm create astro@latest -- --template minimal
+**iOS 26 Liquid Glass effect recreated for the web using pure CSS SVG filters.**
+
+[![Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://liquid-glass.nikdelvin.dev)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/nikdelvin/liquid-glass)
+
+![Liquid Glass Preview](https://raw.githubusercontent.com/nikdelvin/liquid-glass/main/preview.png)
+
+---
+
+## ✨ Features
+
+- 🎨 **Pure CSS** - No JavaScript animation libraries, just SVG filters and backdrop-filter
+- 🔮 **Realistic Refraction** - Displacement mapping creates authentic glass distortion
+- 🌈 **Chromatic Aberration** - RGB color splitting for that premium glass look
+- ⚡ **Performant** - GPU-accelerated CSS transforms and filters
+- 📱 **Responsive** - Scales beautifully across all screen sizes
+- 🍎 **Safari Fallback** - Graceful degradation with glassmorphism mode
+
+---
+
+## 🧩 Components
+
+### LiquidGlass
+
+A container with liquid glass refraction effect. Perfect for cards, panels, and hero sections.
+
+```astro
+<LiquidGlass
+  width={655}
+  height={127}
+  radius={50}
+  depth={10}
+  blur={1}
+  chromaticAberration={2}
+  color="white"
+>
+  <div class="p-8 text-4xl font-bold">
+    Your content here
+  </div>
+</LiquidGlass>
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `width` | number | required | Width in pixels |
+| `height` | number | required | Height in pixels |
+| `radius` | number | required | Border radius in pixels |
+| `depth` | number | required | Edge refraction depth |
+| `blur` | number | 0 | Blur amount |
+| `chromaticAberration` | number | — | RGB split intensity |
+| `color` | 'white' \| 'black' \| 'transparent' | 'black' | Glass tint |
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+### LiquidText
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+Apply liquid glass effect directly to text for stunning typography.
+
+```astro
+<div class="text-6xl font-bold">
+  <LiquidText blur={1} chromaticAberration={4} color="black">
+    LIQUID TEXT
+  </LiquidText>
+</div>
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `blur` | number | — | Blur amount |
+| `chromaticAberration` | number | — | RGB split intensity |
+| `color` | 'white' \| 'black' \| 'transparent' | — | Text tint |
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
+### LiquidButton
 
-## 🧞 Commands
+Pill-shaped button with displacement and specular map effects.
 
-All commands are run from the root of the project, from a terminal:
+```astro
+<!-- Full liquid glass effect -->
+<LiquidButton w={300} h={60}>
+  <a href="/link">Click Me</a>
+</LiquidButton>
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+<!-- Safari-compatible fallback -->
+<LiquidButton w={300} h={60} morph>
+  <a href="/link">Click Me</a>
+</LiquidButton>
+```
 
-## 👀 Want to learn more?
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `w` | number | required | Width in pixels |
+| `h` | number | required | Height in pixels |
+| `morph` | boolean | false | Enable Safari glassmorphism fallback |
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/nikdelvin/liquid-glass.git
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+---
+
+## 🌐 Browser Support
+
+| Browser | LiquidGlass | LiquidText | LiquidButton |
+|---------|-------------|------------|--------------|
+| Chrome 76+ | ✅ Full | ✅ Full | ✅ Full |
+| Firefox 103+ | ✅ Full | ✅ Full | ✅ Full |
+| Safari 15+ | ⚠️ Partial | ⚠️ Partial | ✅ morph mode |
+| Edge 79+ | ✅ Full | ✅ Full | ✅ Full |
+
+---
+
+## 📁 Required Assets
+
+For `LiquidButton`, place these PNG files in `/public/assets/`:
+
+```
+public/
+└── assets/
+    ├── displacement-map-left.png
+    ├── displacement-map-middle.png
+    ├── displacement-map-right.png
+    ├── specular-map-left.png
+    ├── specular-map-middle.png
+    └── specular-map-right.png
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- [Astro](https://astro.build) - Static site generator
+- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS
+- SVG Filters - feDisplacementMap, feGaussianBlur, feColorMatrix
+- CSS backdrop-filter
+
+---
+
+## 📄 License
+
+MIT © [Nik Delvin](https://github.com/nikdelvin)
+
+---
+
+<p align="center">
+  Made with 🫧 by <a href="https://github.com/nikdelvin">Nik Delvin</a>
+</p>
