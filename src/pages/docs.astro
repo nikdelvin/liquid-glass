@@ -127,62 +127,6 @@ import '../styles/global.css'
 <span class="text-zinc-500">&lt;/</span><span class="text-blue-400">LiquidGlass</span><span class="text-zinc-500">&gt;</span></code></pre>
 			</section>
 
-			<!-- LiquidText -->
-			<section class="mb-16">
-				<h2 class="text-3xl font-bold mb-6 text-white border-b border-zinc-800 pb-3">LiquidText</h2>
-				<p class="text-zinc-300 mb-6">Applies liquid glass effect directly to text, creating a stunning refracted typography effect.</p>
-				
-				<h3 class="text-xl font-semibold mb-3 text-zinc-200">Import</h3>
-				<pre class="bg-zinc-900 rounded-xl p-4 mb-6 overflow-x-auto border border-zinc-800"><code class="text-green-400">import LiquidText from '../components/LiquidText.astro'</code></pre>
-				
-				<h3 class="text-xl font-semibold mb-3 text-zinc-200">Props</h3>
-				<div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 mb-6">
-					<table class="w-full text-left">
-						<thead class="bg-zinc-800">
-							<tr>
-								<th class="px-4 py-3 font-semibold">Prop</th>
-								<th class="px-4 py-3 font-semibold">Type</th>
-								<th class="px-4 py-3 font-semibold">Default</th>
-								<th class="px-4 py-3 font-semibold">Description</th>
-							</tr>
-						</thead>
-						<tbody class="divide-y divide-zinc-800">
-							<tr>
-								<td class="px-4 py-3"><code class="text-pink-400">blur</code></td>
-								<td class="px-4 py-3 text-zinc-400">number</td>
-								<td class="px-4 py-3 text-zinc-500">—</td>
-								<td class="px-4 py-3 text-zinc-300">Blur amount in pixels</td>
-							</tr>
-							<tr>
-								<td class="px-4 py-3"><code class="text-pink-400">strength</code></td>
-								<td class="px-4 py-3 text-zinc-400">number</td>
-								<td class="px-4 py-3 text-zinc-500">—</td>
-								<td class="px-4 py-3 text-zinc-300">Displacement strength multiplier</td>
-							</tr>
-							<tr>
-								<td class="px-4 py-3"><code class="text-pink-400">chromaticAberration</code></td>
-								<td class="px-4 py-3 text-zinc-400">number</td>
-								<td class="px-4 py-3 text-zinc-500">—</td>
-								<td class="px-4 py-3 text-zinc-300">RGB split effect intensity</td>
-							</tr>
-							<tr>
-								<td class="px-4 py-3"><code class="text-pink-400">color</code></td>
-								<td class="px-4 py-3 text-zinc-400">'white' | 'black' | 'transparent'</td>
-								<td class="px-4 py-3 text-zinc-500">—</td>
-								<td class="px-4 py-3 text-zinc-300">Text tint color</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<h3 class="text-xl font-semibold mb-3 text-zinc-200">Usage</h3>
-				<pre class="bg-zinc-900 rounded-xl p-4 overflow-x-auto border border-zinc-800"><code class="text-sm"><span class="text-zinc-500">&lt;</span><span class="text-red-400">div</span> <span class="text-pink-400">class</span>=<span class="text-green-400">"text-6xl font-bold"</span><span class="text-zinc-500">&gt;</span>
-  <span class="text-zinc-500">&lt;</span><span class="text-blue-400">LiquidText</span> <span class="text-pink-400">blur</span>=<span class="text-amber-400">{`{1}`}</span> <span class="text-pink-400">chromaticAberration</span>=<span class="text-amber-400">{`{4}`}</span> <span class="text-pink-400">color</span>=<span class="text-green-400">"black"</span><span class="text-zinc-500">&gt;</span>
-    LIQUID TEXT
-  <span class="text-zinc-500">&lt;/</span><span class="text-blue-400">LiquidText</span><span class="text-zinc-500">&gt;</span>
-<span class="text-zinc-500">&lt;/</span><span class="text-red-400">div</span><span class="text-zinc-500">&gt;</span></code></pre>
-			</section>
-
 			<!-- LiquidButton -->
 			<section class="mb-16">
 				<h2 class="text-3xl font-bold mb-6 text-white border-b border-zinc-800 pb-3">LiquidButton</h2>
@@ -216,6 +160,12 @@ import '../styles/global.css'
 								<td class="px-4 py-3 text-zinc-300">Height of the button in pixels</td>
 							</tr>
 							<tr>
+								<td class="px-4 py-3"><code class="text-pink-400">color</code></td>
+								<td class="px-4 py-3 text-zinc-400">'black' | 'white' | 'transparent'</td>
+								<td class="px-4 py-3 text-zinc-500">'transparent'</td>
+								<td class="px-4 py-3 text-zinc-300">Button tint color</td>
+							</tr>
+							<tr>
 								<td class="px-4 py-3"><code class="text-pink-400">morph</code></td>
 								<td class="px-4 py-3 text-zinc-400">boolean</td>
 								<td class="px-4 py-3 text-zinc-500">false</td>
@@ -232,8 +182,18 @@ import '../styles/global.css'
 				</div>
 
 				<h3 class="text-xl font-semibold mb-3 text-zinc-200">Usage</h3>
-				<pre class="bg-zinc-900 rounded-xl p-4 overflow-x-auto border border-zinc-800 mb-6"><code class="text-sm"><span class="text-zinc-400">// Full liquid glass effect (Chrome, Firefox)</span>
+				<pre class="bg-zinc-900 rounded-xl p-4 overflow-x-auto border border-zinc-800 mb-6"><code class="text-sm"><span class="text-zinc-400">// Transparent glass (default)</span>
 <span class="text-zinc-500">&lt;</span><span class="text-blue-400">LiquidButton</span> <span class="text-pink-400">w</span>=<span class="text-amber-400">{`{300}`}</span> <span class="text-pink-400">h</span>=<span class="text-amber-400">{`{60}`}</span><span class="text-zinc-500">&gt;</span>
+  <span class="text-zinc-500">&lt;</span><span class="text-red-400">a</span> <span class="text-pink-400">href</span>=<span class="text-green-400">"/link"</span><span class="text-zinc-500">&gt;</span>Click Me<span class="text-zinc-500">&lt;/</span><span class="text-red-400">a</span><span class="text-zinc-500">&gt;</span>
+<span class="text-zinc-500">&lt;/</span><span class="text-blue-400">LiquidButton</span><span class="text-zinc-500">&gt;</span>
+
+<span class="text-zinc-400">// White tinted glass</span>
+<span class="text-zinc-500">&lt;</span><span class="text-blue-400">LiquidButton</span> <span class="text-pink-400">w</span>=<span class="text-amber-400">{`{300}`}</span> <span class="text-pink-400">h</span>=<span class="text-amber-400">{`{60}`}</span> <span class="text-pink-400">color</span>=<span class="text-green-400">"white"</span><span class="text-zinc-500">&gt;</span>
+  <span class="text-zinc-500">&lt;</span><span class="text-red-400">a</span> <span class="text-pink-400">href</span>=<span class="text-green-400">"/link"</span><span class="text-zinc-500">&gt;</span>Click Me<span class="text-zinc-500">&lt;/</span><span class="text-red-400">a</span><span class="text-zinc-500">&gt;</span>
+<span class="text-zinc-500">&lt;/</span><span class="text-blue-400">LiquidButton</span><span class="text-zinc-500">&gt;</span>
+
+<span class="text-zinc-400">// Dark glass effect</span>
+<span class="text-zinc-500">&lt;</span><span class="text-blue-400">LiquidButton</span> <span class="text-pink-400">w</span>=<span class="text-amber-400">{`{300}`}</span> <span class="text-pink-400">h</span>=<span class="text-amber-400">{`{60}`}</span> <span class="text-pink-400">color</span>=<span class="text-green-400">"black"</span><span class="text-zinc-500">&gt;</span>
   <span class="text-zinc-500">&lt;</span><span class="text-red-400">a</span> <span class="text-pink-400">href</span>=<span class="text-green-400">"/link"</span><span class="text-zinc-500">&gt;</span>Click Me<span class="text-zinc-500">&lt;/</span><span class="text-red-400">a</span><span class="text-zinc-500">&gt;</span>
 <span class="text-zinc-500">&lt;/</span><span class="text-blue-400">LiquidButton</span><span class="text-zinc-500">&gt;</span>
 
@@ -256,7 +216,6 @@ import '../styles/global.css'
 							<tr>
 								<th class="px-4 py-3 font-semibold">Browser</th>
 								<th class="px-4 py-3 font-semibold">LiquidGlass</th>
-								<th class="px-4 py-3 font-semibold">LiquidText</th>
 								<th class="px-4 py-3 font-semibold">LiquidButton</th>
 							</tr>
 						</thead>
@@ -265,23 +224,19 @@ import '../styles/global.css'
 								<td class="px-4 py-3 text-zinc-300">Chrome 76+</td>
 								<td class="px-4 py-3 text-green-400">✓ Full</td>
 								<td class="px-4 py-3 text-green-400">✓ Full</td>
-								<td class="px-4 py-3 text-green-400">✓ Full</td>
 							</tr>
 							<tr>
 								<td class="px-4 py-3 text-zinc-300">Firefox 103+</td>
-								<td class="px-4 py-3 text-green-400">✓ Full</td>
 								<td class="px-4 py-3 text-green-400">✓ Full</td>
 								<td class="px-4 py-3 text-green-400">✓ Full</td>
 							</tr>
 							<tr>
 								<td class="px-4 py-3 text-zinc-300">Safari 15+</td>
 								<td class="px-4 py-3 text-yellow-400">⚠ Partial</td>
-								<td class="px-4 py-3 text-yellow-400">⚠ Partial</td>
 								<td class="px-4 py-3 text-green-400">✓ morph mode</td>
 							</tr>
 							<tr>
 								<td class="px-4 py-3 text-zinc-300">Edge 79+</td>
-								<td class="px-4 py-3 text-green-400">✓ Full</td>
 								<td class="px-4 py-3 text-green-400">✓ Full</td>
 								<td class="px-4 py-3 text-green-400">✓ Full</td>
 							</tr>

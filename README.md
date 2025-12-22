@@ -54,33 +54,23 @@ A container with liquid glass refraction effect. Perfect for cards, panels, and 
 
 ---
 
-### LiquidText
-
-Apply liquid glass effect directly to text for stunning typography.
-
-```astro
-<div class="text-6xl font-bold">
-  <LiquidText blur={1} chromaticAberration={4} color="black">
-    LIQUID TEXT
-  </LiquidText>
-</div>
-```
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `blur` | number | — | Blur amount |
-| `chromaticAberration` | number | — | RGB split intensity |
-| `color` | 'white' \| 'black' \| 'transparent' | — | Text tint |
-
----
-
 ### LiquidButton
 
 Pill-shaped button with displacement and specular map effects.
 
 ```astro
-<!-- Full liquid glass effect -->
+<!-- Transparent glass effect (default) -->
 <LiquidButton w={300} h={60}>
+  <a href="/link">Click Me</a>
+</LiquidButton>
+
+<!-- White tinted glass -->
+<LiquidButton w={300} h={60} color="white">
+  <a href="/link">Click Me</a>
+</LiquidButton>
+
+<!-- Dark glass effect -->
+<LiquidButton w={300} h={60} color="black">
   <a href="/link">Click Me</a>
 </LiquidButton>
 
@@ -94,6 +84,7 @@ Pill-shaped button with displacement and specular map effects.
 |------|------|---------|-------------|
 | `w` | number | required | Width in pixels |
 | `h` | number | required | Height in pixels |
+| `color` | 'black' \| 'white' \| 'transparent' | 'transparent' | Button tint color |
 | `morph` | boolean | false | Enable Safari glassmorphism fallback |
 
 ---
@@ -115,12 +106,12 @@ npm run dev
 
 ## 🌐 Browser Support
 
-| Browser | LiquidGlass | LiquidText | LiquidButton |
-|---------|-------------|------------|--------------|
-| Chrome 76+ | ✅ Full | ✅ Full | ✅ Full |
-| Firefox 103+ | ✅ Full | ✅ Full | ✅ Full |
-| Safari 15+ | ⚠️ Partial | ⚠️ Partial | ✅ morph mode |
-| Edge 79+ | ✅ Full | ✅ Full | ✅ Full |
+| Browser | LiquidGlass | LiquidButton |
+|---------|-------------|--------------|
+| Chrome 76+ | ✅ Full | ✅ Full |
+| Firefox 103+ | ✅ Full | ✅ Full |
+| Safari 15+ | ⚠️ Partial | ✅ morph mode |
+| Edge 79+ | ✅ Full | ✅ Full |
 
 ---
 

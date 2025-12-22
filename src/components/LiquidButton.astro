@@ -4,9 +4,10 @@ interface Props {
   w: number;
   h: number;
   morph?: true;
+  color?: 'black' | 'white' | 'transparent'
 }
 
-const { class: className, w, h, morph } = Astro.props;
+const { class: className, w, h, morph, color = 'transparent' } = Astro.props;
 
 const width = w;
 const height = h;
@@ -15,6 +16,13 @@ const edgeWidth = Math.round(63 * scale);
 const rightX = width - edgeWidth;
 const middleWidth = Math.max(0, width - edgeWidth * 2);
 const middleMask = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='${width}' height='${height}'%3E%3Crect x='${edgeWidth}' y='0' width='${middleWidth}' height='${height}' fill='white'/%3E%3C/svg%3E`;
+const backdropBG = (() => {
+    switch (color) {
+        case 'transparent': return ''
+        case 'black': return ' brightness(0.4)'
+        case 'white': return ' saturate(0.5) contrast(0.5) brightness(1.6)'
+    }
+})()
 ---
 
 <div class:list={["liquid-glass-button relative", className]} style={`width: ${width}px; height: ${height}px;`}>
@@ -64,7 +72,7 @@ const middleMask = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
         </filter>
         </defs>
     </svg>
-    <div class="absolute inset-0 rounded-full" style='backdrop-filter: url("#glass-filter") blur(1.5px);'></div>
+    <div class="absolute inset-0 rounded-full" style={`backdrop-filter: url("#glass-filter") blur(1.5px)${backdropBG};`}></div>
     </>
   )}
   <svg 
