@@ -5,7 +5,7 @@
 [![Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://liquid-glass.nikdelvin.dev)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/nikdelvin/liquid-glass)
 
-![Liquid Glass Preview](https://raw.githubusercontent.com/nikdelvin/liquid-glass/main/preview.png)
+![Liquid Glass Preview](https://raw.githubusercontent.com/nikdelvin/liquid-glass/main/preview.webp)
 
 ---
 
