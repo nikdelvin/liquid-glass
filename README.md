@@ -2,7 +2,7 @@
 
 **iOS 26 Liquid Glass effect recreated for the web using pure CSS SVG filters.**
 
-[![Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://liquid-glass.nikdelvin.dev)
+[![Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://liquid-glass.web.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/nikdelvin/liquid-glass)
 
 ![Liquid Glass Preview](https://raw.githubusercontent.com/nikdelvin/liquid-glass/main/preview.webp)

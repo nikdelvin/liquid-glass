@@ -97,7 +97,7 @@
 }
 .glass-text.glass-none {
     color: rgba(255, 255, 255, 0);
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 .glass-text-container.glass-transparent {
     filter: brightness(2) saturate(2) contrast(2) drop-shadow(0px 0px 1px #fff) invert(1);
