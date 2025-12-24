@@ -1,0 +1,103 @@
+---
+import "@styles/global.css";
+import { config } from "@config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+}
+
+const { title, description, keywords } = Astro.props;
+const defaults = {
+  title: "Liquid Glass - iOS Glass Effects for Web",
+  description:
+    "Beautiful iOS-style liquid glass refraction effects for the web using pure CSS SVG filters. Create stunning glassmorphism UI with realistic displacement mapping and chromatic aberration.",
+  keywords: [
+    "liquid glass",
+    "glassmorphism",
+    "iOS glass effect",
+    "CSS SVG filters",
+    "backdrop filter",
+    "Tailwind CSS",
+    "Astro component",
+  ],
+};
+const pageTitle = title != null ? `${title} - Liquid Glass` : defaults.title;
+const pageDescription =
+  description != null ? `${description}` : defaults.description;
+const pageKeywords =
+  keywords != null
+    ? `${keywords.concat(["liquid glass", "glassmorphism", "iOS glass effect"]).join(", ")}`
+    : defaults.keywords.join(", ");
+const ldJson = {
+  ...config.ldJson,
+  ...{ title: pageTitle, description: pageDescription, keywords: pageKeywords },
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="title" content={pageTitle} />
+    <meta name="description" content={pageDescription} />
+    <meta name="keywords" content={pageKeywords} />
+    <meta name="author" content={config.author} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={config.canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={config.ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={pageTitle} />
+    <meta property="og:site_name" content={config.siteName} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={config.socials.twitter} />
+    <meta name="twitter:url" content={config.canonicalUrl} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={config.ogImage} />
+    <meta name="twitter:image:alt" content={pageTitle} />
+    <meta name="twitter:creator" content={config.socials.twitter} />
+    <link rel="canonical" href={config.canonicalUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
+    <link
+      rel="preload"
+      href="/fonts/latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/latin-ext.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/symbols.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body
+    class="min-h-screen w-full overflow-x-hidden bg-zinc-950 text-zinc-100 antialiased"
+  >
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+      <slot />
+    </div>
+  </body>
+</html>

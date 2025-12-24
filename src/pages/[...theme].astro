@@ -1,0 +1,187 @@
+---
+import LiquidGlass from "@components/LiquidGlass.astro";
+import Layout from "@layouts/Layout.astro";
+
+const themes = {
+  bg: [],
+  lines: ["1.svg", "2.svg", "3.svg"],
+  rocks: ["1.png", "2.png", "3.png"],
+  chrome: ["1.png", "2.png", "3.png"],
+  silk: ["1.png", "2.png", "3.png"],
+} as const;
+
+type ThemeName = keyof typeof themes;
+
+export async function getStaticPaths() {
+  return [undefined, "bg", "lines", "rocks", "chrome", "silk"].map((theme) => ({
+    params: { theme },
+  }));
+}
+
+const { theme: themeParam } = Astro.params;
+const theme: ThemeName =
+  themeParam && themeParam in themes ? (themeParam as ThemeName) : "bg";
+---
+
+<Layout
+  title="iOS Liquid Glass Effect"
+  description="Beautiful iOS-style liquid glass refraction effects for the web using pure CSS SVG filters. Create stunning glassmorphism UI with realistic displacement mapping and chromatic aberration."
+  keywords={[
+    "liquid glass",
+    "glassmorphism",
+    "iOS glass effect",
+    "CSS SVG filters",
+    "backdrop filter",
+    "displacement map",
+    "chromatic aberration",
+    "Tailwind CSS",
+    "Astro component",
+    "web UI",
+    "glass effect",
+    "refraction",
+  ]}
+>
+  {
+    theme === "bg" && (
+      <div
+        class="absolute inset-0 brightness-75"
+        style="background-image: url('/assets/background.webp'); background-repeat: no-repeat; background-position: center center; background-size: cover;"
+      />
+    )
+  }
+  <div
+    class="absolute inset-0 flex h-screen w-screen flex-col items-center justify-center text-center"
+  >
+    <div class="flex flex-col items-center justify-center gap-16 max-sm:gap-8">
+      <LiquidGlass
+        class="rounded-[50px]"
+        background={theme !== "bg"
+          ? `/assets/${theme}${themes[theme][0]}`
+          : undefined}
+        blur={0}
+        chromaticAberration={2}
+      >
+        <div
+          class="p-8 px-11 text-center text-8xl font-black text-zinc-50/85 max-lg:text-6xl max-sm:p-4 max-sm:px-5.5 max-sm:text-4xl"
+        >
+          IOS LIQID GLASS
+        </div>
+      </LiquidGlass>
+      <LiquidGlass
+        class="rounded-[50px]"
+        background={theme !== "bg"
+          ? `/assets/${theme}${themes[theme][1]}`
+          : undefined}
+        blur={0}
+        chromaticAberration={2}
+      >
+        <div
+          class="p-8 px-11 text-center text-6xl leading-none font-normal text-zinc-50/85 max-lg:text-4xl max-sm:p-4 max-sm:px-5.5 max-sm:text-2xl"
+        >
+          Tailwind CSS Component
+        </div>
+      </LiquidGlass>
+      <div class="flex w-max flex-col gap-8 max-sm:gap-4">
+        <LiquidGlass
+          class="w-full! rounded-[30px]"
+          background={theme !== "bg"
+            ? `/assets/${theme}${themes[theme][2]}`
+            : undefined}
+          color="black"
+          blur={0}
+          chromaticAberration={2}
+          button
+        >
+          <a
+            href="https://github.com/nikdelvin/liquid-glass"
+            target="_blank"
+            class="px-8 py-4 text-xl font-normal text-zinc-50/85">Github Repo</a
+          >
+        </LiquidGlass>
+        <LiquidGlass
+          class="w-full! rounded-[30px]"
+          background={theme !== "bg"
+            ? `/assets/${theme}${themes[theme][2]}`
+            : undefined}
+          color="white"
+          blur={0}
+          chromaticAberration={2}
+          button
+        >
+          <a
+            href="/docs"
+            target="_blank"
+            class="px-8 py-4 text-xl font-normal text-zinc-950/85"
+            >Documentation</a
+          >
+        </LiquidGlass>
+      </div>
+    </div>
+  </div>
+  <div class="fixed bottom-0 left-1/2 z-50 -translate-x-1/2">
+    <div
+      class="flex flex-row gap-4 rounded-t-4xl bg-zinc-900/50 p-3 backdrop-blur-md"
+    >
+      <a href="/" title="Background">
+        <LiquidGlass
+          class="rounded-full"
+          background="/assets/background.webp"
+          strength={10}
+          blur={0}
+          chromaticAberration={1}
+          color={theme === "bg" ? "white" : undefined}
+        >
+          <div class="h-12 w-12"></div>
+        </LiquidGlass>
+      </a>
+      <a href="/lines" title="Lines">
+        <LiquidGlass
+          class="rounded-full"
+          background="/assets/lines1.svg"
+          strength={10}
+          blur={0}
+          chromaticAberration={1}
+          color={theme === "lines" ? "white" : undefined}
+        >
+          <div class="h-12 w-12"></div>
+        </LiquidGlass>
+      </a>
+      <a href="/rocks" title="Rocks">
+        <LiquidGlass
+          class="rounded-full"
+          background="/assets/rocks1.png"
+          strength={10}
+          blur={0}
+          chromaticAberration={1}
+          color={theme === "rocks" ? "white" : undefined}
+        >
+          <div class="h-12 w-12"></div>
+        </LiquidGlass>
+      </a>
+      <a href="/chrome" title="Chrome">
+        <LiquidGlass
+          class="rounded-full"
+          background="/assets/chrome1.png"
+          strength={10}
+          blur={0}
+          chromaticAberration={1}
+          color={theme === "chrome" ? "white" : undefined}
+        >
+          <div class="h-12 w-12"></div>
+        </LiquidGlass>
+      </a>
+      <a href="/silk" title="Silk">
+        <LiquidGlass
+          class="rounded-full"
+          background="/assets/silk1.png"
+          strength={10}
+          blur={0}
+          chromaticAberration={1}
+          color={theme === "silk" ? "white" : undefined}
+        >
+          <div class="h-12 w-12"></div>
+        </LiquidGlass>
+      </a>
+    </div>
+  </div>
+</Layout>

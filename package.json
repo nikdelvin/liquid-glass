@@ -1,0 +1,30 @@
+{
+  "name": "hub",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "npm run check && astro dev",
+    "build": "npm run check && astro build",
+    "preview": "npm run check && astro preview",
+    "eslint": "eslint --ext .ts,.astro src",
+    "prettier": "prettier --write . --plugin=prettier-plugin-astro --plugin=prettier-plugin-tailwindcss",
+    "check": "npm run prettier && npm run eslint",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "animejs": "^4.2.2",
+    "astro": "^5.16.6",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "prettier": "^3.7.4",
+    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "typescript-eslint": "^8.50.1"
+  }
+}

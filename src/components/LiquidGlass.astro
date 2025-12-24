@@ -1,0 +1,242 @@
+---
+interface Props {
+  class?: string;
+  depth?: number;
+  strength?: number;
+  chromaticAberration?: number;
+  blur?: number;
+  color?: "black" | "white";
+  background?: string;
+  freeze?: true;
+  noMorph?: true;
+  button?: true;
+  inline?: true;
+}
+
+const {
+  class: className,
+  depth = 10,
+  strength = 100,
+  chromaticAberration = 0,
+  blur = 0,
+  color,
+  background,
+  freeze,
+  noMorph,
+  button,
+  inline,
+} = Astro.props;
+
+const wrapperClasses = `${className ?? ""} liquid-glass ${inline != null ? "inline-flex align-middle" : "w-max"} ${button != null ? "button cursor-pointer shadow-[0px_0px_1px_white] origin-[top_center]" : ""} relative overflow-hidden`;
+const overlayStyle = `${noMorph == null ? `background: ${button == null ? "rgba(0, 0, 0, 0.3)" : "rgba(255, 255, 255, 0.1)"};` : "background: rgba(255, 255, 255, 0.1);"}`;
+---
+
+{
+  inline ? (
+    <span class={wrapperClasses}>
+      <span class="lg-overlay-bg absolute inset-0 z-1" style={overlayStyle} />
+      <span
+        class={`lg-content relative z-3 flex w-full items-center justify-center text-center`}
+      >
+        <slot />
+      </span>
+      <span class="lg-filter-layer absolute inset-0 z-2">
+        <span
+          id="liquid-glass"
+          data-blur={blur}
+          data-cab={chromaticAberration}
+          data-depth={depth}
+          data-strength={strength}
+          data-saturate={button == null ? 1.5 : 1.2}
+          data-brightness={button == null ? 1.1 : 1.6}
+          class={`glass-box m-0! glass-${color ?? "transparent"} ${className ?? ""}`}
+        />
+      </span>
+    </span>
+  ) : (
+    <div class={wrapperClasses}>
+      <div class="lg-overlay-bg absolute inset-0 z-1" style={overlayStyle} />
+      {background && (
+        <div class="lg-bg-container absolute inset-0 z-0 overflow-hidden">
+          <div
+            class={`${freeze == null ? "animate-spin-hover" : ""} lg-bg-image absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2`}
+          >
+            <img src={background} style="will-change: filter;" />
+          </div>
+        </div>
+      )}
+      <div
+        class={`lg-content relative z-3 flex w-full items-center justify-center text-center`}
+      >
+        <slot />
+      </div>
+      <div class="lg-filter-layer absolute inset-0 z-2">
+        <div
+          id="liquid-glass"
+          data-blur={blur}
+          data-cab={chromaticAberration}
+          data-depth={depth}
+          data-strength={strength}
+          data-saturate={button == null ? 1.5 : 1.2}
+          data-brightness={button == null ? 1.1 : 1.6}
+          class={`glass-box m-0! glass-${color ?? "transparent"} ${className ?? ""}`}
+        />
+      </div>
+    </div>
+  )
+}
+<style>
+  .liquid-glass.button {
+    transition: all 0.3s ease-out;
+    scale: 1;
+    rotate: 0deg;
+  }
+  .liquid-glass.button:hover {
+    scale: 1.05;
+    rotate: -1deg;
+  }
+  .glass-box.glass-black {
+    background: #09090b80;
+    box-shadow: inset 0 0 4px 0px #fafafa80;
+    filter: brightness(0.6);
+  }
+  .glass-box.glass-white {
+    background: #fafafa80;
+    box-shadow: inset 0 0 4px 0px #fafafa80;
+  }
+  .glass-box.glass-transparent {
+    background: #09090b00;
+    box-shadow: inset 0 0 4px 0px #fafafa80;
+  }
+</style>
+<script>
+  import { animate, utils } from "animejs";
+  import { getDisplacementFilter } from "../utils/liquidGlass";
+
+  const supportsBackdropFilterUrl = (() => {
+    const testEl = document.createElement("div");
+    testEl.style.cssText = "backdrop-filter: url(#test)";
+    const supported =
+      testEl.style.backdropFilter === "url(#test)" ||
+      testEl.style.backdropFilter === 'url("#test")';
+    return supported;
+  })();
+
+  function redrawGlass(glass: HTMLElement) {
+    const liquidGlass = glass.querySelector<HTMLElement>("#liquid-glass")!;
+    const bgImage = glass.querySelector<HTMLElement>(".lg-bg-image");
+    const bgImageImg = bgImage?.querySelector<HTMLImageElement>("img");
+    const content = glass.querySelector<HTMLElement>(".lg-content")!;
+    const spinner = glass.querySelector<HTMLElement>(
+      ".animate-spin-hover, .lg-bg-image",
+    );
+    const spinnerImage = spinner?.querySelector<HTMLImageElement>("img");
+
+    const rect = content.getBoundingClientRect();
+    const width = Math.round(rect.width);
+    const height = Math.round(rect.height);
+
+    const blur = parseFloat(liquidGlass.dataset.blur || "0");
+    const chromaticAberration = parseFloat(liquidGlass.dataset.cab || "0");
+    const depth = parseFloat(liquidGlass.dataset.depth || "10");
+    const strength = parseFloat(liquidGlass.dataset.strength || "100");
+    const saturate = parseFloat(liquidGlass.dataset.saturate || "1.5");
+    const brightness = parseFloat(liquidGlass.dataset.brightness || "1.1");
+    const radius = parseFloat(glass.style.borderRadius || "0");
+
+    liquidGlass.style.height = `${height}px`;
+    liquidGlass.style.width = `${width}px`;
+
+    if (bgImageImg) {
+      bgImageImg.style.width = `${width}px`;
+      bgImageImg.style.height = `${width}px`;
+    }
+
+    if (supportsBackdropFilterUrl) {
+      liquidGlass.style.backdropFilter = `blur(${blur / 2}px) url('${getDisplacementFilter(
+        {
+          height,
+          width,
+          radius,
+          depth,
+          strength,
+          chromaticAberration,
+        },
+      )}') blur(${blur}px) brightness(${brightness}) saturate(${saturate})`;
+    } else {
+      if (spinner && spinnerImage) {
+        spinnerImage.style.filter = `blur(${width / 50}px) saturate(180%)`;
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        liquidGlass.style["-webkit-backdrop-filter"] =
+          `blur(${width / 10}px) saturate(180%)`;
+      }
+    }
+  }
+
+  function initGlass() {
+    document.querySelectorAll<HTMLElement>(".liquid-glass").forEach((glass) => {
+      redrawGlass(glass);
+
+      const resizeObserver = new ResizeObserver(() => {
+        redrawGlass(glass);
+      });
+      resizeObserver.observe(glass);
+
+      const spinner = glass.querySelector<HTMLElement>(
+        ".animate-spin-hover, .lg-bg-image",
+      );
+      const spinnerImage = spinner?.querySelector<HTMLImageElement>("img");
+
+      if (!supportsBackdropFilterUrl && spinner && spinnerImage) {
+        spinnerImage.style.filter = `saturate(180%)`;
+        glass.style.boxShadow = glass?.classList.contains("button")
+          ? "0px 0px 2px white"
+          : "0px 0px 1px white";
+      }
+
+      if (!spinner?.classList.contains("animate-spin-hover")) return;
+
+      let currentRotation = 0;
+      let animation: ReturnType<typeof animate> | null = null;
+
+      glass.addEventListener("mouseenter", () => {
+        if (animation) {
+          animation.play();
+        } else {
+          animation = animate(spinner, {
+            rotate: [currentRotation, currentRotation + 360],
+            duration: 20000,
+            easing: "linear",
+            loop: true,
+          });
+        }
+      });
+
+      glass.addEventListener("mouseleave", () => {
+        if (animation) {
+          const matrix = getComputedStyle(spinner).transform;
+          if (matrix && matrix !== "none") {
+            const values = matrix.match(/matrix\(([^)]+)\)/)?.[1]?.split(", ");
+            if (values) {
+              const a = parseFloat(values[0]);
+              const b = parseFloat(values[1]);
+              currentRotation = Math.atan2(b, a) * (180 / Math.PI);
+              currentRotation = ((currentRotation % 360) + 360) % 360;
+            }
+          }
+          animation.pause();
+          animation = null;
+          utils.set(spinner, { rotate: currentRotation });
+        }
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGlass);
+  } else {
+    initGlass();
+  }
+</script>
